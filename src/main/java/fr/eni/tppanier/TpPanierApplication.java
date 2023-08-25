@@ -37,6 +37,6 @@ public class TpPanierApplication implements CommandLineRunner {
         commandeManager.save(c1);
 
         System.out.println(c1);
-        System.out.println(commandeManager.listerArticles(c1));
+        System.out.println(commandeManager.listerArticles());
     }
 }

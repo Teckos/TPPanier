@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface CommandeManager {
     public void save(Commande commande);
-    public void ajouterArticle(Commande commande, Article article);
+    public void valider(String string);
+    public void ajouterArticle(Article article);
 
-    public List<Article> listerArticles(Commande commande);
+    public List<Article> listerArticles();
+
 }

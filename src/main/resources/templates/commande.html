@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+    <meta charset="UTF-8">
+    <title>Commande</title>
+</head>
+<body>
+<h1>Passer une commande</h1>
+<!--/*@thymesVar id="article" type="fr.eni.tppanier.bo.Article"*/-->
+
+<form th:action="@{/commande/ajouter_article}" th:object="${article}"  method="post">
+    <fieldset>
+        <legend>Articles</legend>
+        <select name="article" id="article">
+            <div th:each="article : ${tousLesArticles}">
+                <option th:value="${article.idArticle}" th:text="${article.nom}+' '+${article.prix} "></option>
+            </div>
+        </select>
+        <input type="submit" value="Ajouter">
+    </fieldset>
+</form>
+<div>
+    <!--/*@thymesVar id="commande" type="fr.eni.tppanier.bo.Commande"*/-->
+    <ul th:each="article : ${panier}">
+        <li>
+            <span th:text="${article.nom}"/>
+            <span th:text="${article.prix}"/>
+            <!--                <a th:href="@{/article/supprimer/{id}(id=${article.idArticle})}" th:text="Supprimer">[Supprimer]</a>-->
+        </li>
+
+    </ul>
+</div>
+
+<!--/*@thymesVar id="commande" type="fr.eni.tppanier.bo.Commande"*/-->
+<form th:action="@{/commande/valider}" th:object="${commande}" method="post">
+    <label for="adresse">Adresse</label>
+    <input type="text" id="adresse" th:field="*{adresse}">
+    <!--        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"/>-->
+    <br>
+
+    <input type="submit" value="Valider">
+</form>
+
+
+</body>
+</html>

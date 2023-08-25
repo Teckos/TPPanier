@@ -30,6 +30,7 @@ public class ArticleController {
     }
     @GetMapping
     public String gererArticle(Model model, Article article) {
+
         return "article";
     }
 
