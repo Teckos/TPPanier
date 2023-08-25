@@ -7,20 +7,26 @@ import fr.eni.tppanier.dal.CommandeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class MagasinManagerImpl implements MagasinManager{
+public class ArticleManagerImpl implements ArticleManager {
     @Autowired
     ArticleDAO articleDAO;
-    @Autowired
-    CommandeDAO commandeDAO;
 
     @Override
-    public void createArticle(Article article) {
+    public void save(Article article) {
         articleDAO.save(article);
     }
 
     @Override
-    public void createCommande(Commande commande) {
-        commandeDAO.save(commande);
+    public List<Article> getAll() {
+        return (List<Article>) articleDAO.findAll();
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        articleDAO.deleteById(id);
+    }
+
 }

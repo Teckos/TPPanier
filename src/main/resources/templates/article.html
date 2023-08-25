@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+    <meta charset="UTF-8">
+    <title>Gestion des articles</title>
+</head>
+<body>
+<h1>Gestion des articles</h1>
+<!--/*@thymesVar id="article" type="fr.eni.tppanier.bo.Article"*/-->
+<form th:action="@{/article}" th:object="${article}" method="post">
+    <label for="nom">Nom</label>
+    <input type="text" id="nom" th:field="*{nom}">
+    <!--        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"/>-->
+    <br>
+
+    <label for="prix">Prix</label>
+    <input type="number" id="prix" th:field="*{prix}" step=0.01>
+    <!--        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"/>-->
+    <br>
+
+    <fieldset>
+        <legend>Catégorie</legend>
+        <label for="categorie"></label>
+        <select name="categorie" id="categorie">
+            <div th:each="cat : ${toutesLesCategories}">
+                <option th:value="${cat}" th:text="${cat}"></option>
+            </div>
+        </select>
+    </fieldset>
+
+
+    <input type="submit" value="Créer">
+</form>
+
+<div>
+    <ul th:each="article : ${tousLesArticles}">
+        <li>
+            <span th:text="${article.idArticle}"/>
+            <span th:text="${article.nom}"/>
+            <a th:href="@{/article/supprimer/{id}(id=${article.idArticle})}" th:text="Supprimer">[Supprimer]</a>
+        </li>
+
+    </ul>
+</div>
+
+</body>
+</html>

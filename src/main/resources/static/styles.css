@@ -1,0 +1,94 @@
+/* Réinitialisation des styles de base */
+body, h1, h2, h3, h4, h5, h6, p,form, input, label {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-family: Arial, sans-serif;
+    vertical-align: baseline;
+}
+
+/* Définition d'une largeur maximale pour le contenu */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+body {
+    padding: 20px;
+}
+
+/* Style pour l'en-tête */
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Style pour le formulaire */
+form {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+fieldset {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style pour les messages d'erreur */
+span {
+    /*color: red;*/
+    /*font-size: 12px;*/
+    /*display: block;*/
+    margin-top: 5px;
+}
+
+.personne {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background: lightseagreen;
+}
+
+/* Ajoute d'autres styles si nécessaire */

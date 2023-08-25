@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+import lombok.experimental.Delegate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class Article {
     @NotNull(message = "Prix obligatoire")
     private Double prix;
 
-
+    @Delegate
     @ToString.Exclude
     @ManyToMany
     @JoinTable(name = "article_commandes",
