@@ -30,7 +30,7 @@ public class CommandeController {
 
     @ModelAttribute("panier")
     List<Article> getPanier() {
-        return new ArrayList<>(commandeManager.listerArticlesPanier().keySet());
+        return commandeManager.listerArticles();
     }
 
 
@@ -58,7 +58,7 @@ public class CommandeController {
 
     @PostMapping("/nouvelle_commande/ajouter_article")
     public String ajouterArticle(Article article, BindingResult errors) {
-        commandeManager.ajouterArticleAuPanier(article, 1);
+        commandeManager.ajouterArticle(article);
         return "redirect:/commande/nouvelle_commande";
     }
     @GetMapping("/nouvelle_commande/supprimer_article/{id}")

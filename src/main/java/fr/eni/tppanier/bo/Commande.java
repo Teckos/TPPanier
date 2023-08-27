@@ -30,34 +30,27 @@ public class Commande {
     @NotBlank(message = "Adresse obligatoire")
     private String adresse;
 
-
-//    //    @ToString.Include
-//    @Delegate
-//    @Builder.Default
-//    @ManyToMany/*(mappedBy = "commandes")*/
-////    @NotEmpty(message = "La liste ne peut être nulle")
-//    private List<Article> articles = new ArrayList<>();
-
+//    @ToString.Include
+    @Delegate
+    @Builder.Default
+    @ManyToMany/*(mappedBy = "commandes")*/
+//    @NotEmpty(message = "La liste ne peut être nulle")
+    private List<Article> articles = new ArrayList<>();
 
     public Double getTotal(){
 //        Double sum = this.articles.stream().mapToDouble(Article::getPrix)
 //                .sum();
-        return 0.0;
+        return this.articles.stream().mapToDouble(Article::getPrix)
+                .sum();
     }
-//    public Double getTotal(){
-////        Double sum = this.articles.stream().mapToDouble(Article::getPrix)
-////                .sum();
-//        return this.articles.stream().mapToDouble(Article::getPrix)
-//                .sum();
-//    }
-
-
 
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(this.idCommande);
         sb.append(this.adresse);
+        sb.append(this.articles);
+
         return sb.toString();
     }
 

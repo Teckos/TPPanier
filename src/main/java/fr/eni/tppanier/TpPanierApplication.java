@@ -5,7 +5,6 @@ import fr.eni.tppanier.bll.CommandeManager;
 import fr.eni.tppanier.bo.Article;
 import fr.eni.tppanier.bo.Categorie;
 import fr.eni.tppanier.bo.Commande;
-import fr.eni.tppanier.bo.LigneCommande;
 import fr.eni.tppanier.dal.CommandeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -37,12 +36,7 @@ public class TpPanierApplication implements CommandLineRunner {
         articleManager.save(croquettes50L);
 
         Commande c1 = Commande.builder().adresse("Chez Octavia").build();
-//        c1.setArticles(List.of(croquettes20L, croquettes50L));
+        c1.setArticles(List.of(croquettes20L, croquettes50L));
         commandeManager.save(c1);
-        LigneCommande l1 = new LigneCommande(croquettes20L, c1, 2);
-        commandeManager.ajouterLigne(l1);
-        LigneCommande l2 = new LigneCommande(ballon, c1, 1);
-        commandeManager.ajouterLigne(l2);
-
     }
 }

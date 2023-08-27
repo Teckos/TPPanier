@@ -2,16 +2,17 @@ package fr.eni.tppanier.bll;
 
 import fr.eni.tppanier.bo.Article;
 import fr.eni.tppanier.bo.Commande;
-import fr.eni.tppanier.bo.LigneCommande;
 import fr.eni.tppanier.dal.ArticleDAO;
 import fr.eni.tppanier.dal.CommandeDAO;
-import fr.eni.tppanier.dal.LigneCommandeDAO;
 import fr.eni.tppanier.ihm.CommandeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 //@SessionScope
@@ -20,8 +21,6 @@ public class CommandeManagerImpl implements CommandeManager{
     CommandeDAO commandeDAO;
     @Autowired
     ArticleDAO articleDAO;
-    @Autowired
-    LigneCommandeDAO ligneCommandeDAO;
 
     Commande commande = new Commande();
     CommandeDTO commandeDTO = new CommandeDTO();
@@ -37,14 +36,14 @@ public class CommandeManagerImpl implements CommandeManager{
 //        article.add(commande);
 //    }
     @Override
-    public void ajouterArticleAuPanier(Article article, Integer quantite) {
-//        this.commande.add(article);
-        this.commandeDTO.ajouterAuPanier(article, quantite);
+    public void ajouterArticle(Article article) {
+        this.commande.add(article);
+        article.add(commande);
     }
 
     @Override
     public void ajouterPanier(CommandeDTO commandeDTO) {
-//        this.commande.setArticles(commandeDTO.getPanier());
+        this.commande.setArticles(commandeDTO.getPanier());
     }
 
 //    @Override
@@ -52,8 +51,8 @@ public class CommandeManagerImpl implements CommandeManager{
 //        return commandeDTO.getPanier();
 //    }
     @Override
-    public HashMap<Article,Integer> listerArticlesPanier() {
-        return commandeDTO.getPanier();
+    public List<Article> listerArticles() {
+        return commande.getArticles();
     }
 
     @Override
@@ -67,8 +66,8 @@ public class CommandeManagerImpl implements CommandeManager{
 //    }
     @Override
     public void supprimerArticle(Long id) {
-//        List<Article> lst = this.commande.getArticles();
-//        this.commande.setArticles(lst.stream().filter(e -> !id.equals(e.getIdArticle())).collect(Collectors.toList()));
+        List<Article> lst = this.commande.getArticles();
+        this.commande.setArticles(lst.stream().filter(e -> !id.equals(e.getIdArticle())).collect(Collectors.toList()));
     }
 
     @Override
@@ -76,12 +75,7 @@ public class CommandeManagerImpl implements CommandeManager{
         return this.commande.getTotal();
     }
 
-    @Override
-    public void ajouterLigne(LigneCommande ligne) {
-        this.ligneCommandeDAO.save(ligne);
-    }
-
-    //    @Override
+//    @Override
     public void valider(String adresse) {
         this.commande.setAdresse(adresse);
         System.err.println(adresse);
