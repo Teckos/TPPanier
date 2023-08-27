@@ -1,5 +1,6 @@
 package fr.eni.tppanier.bo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -14,10 +15,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
+@Data
 @Table(name = "article")
 public class Article {
     @Id
@@ -38,10 +37,12 @@ public class Article {
 
     @Delegate
     @ToString.Exclude
-    @ManyToMany
-    @JoinTable(name = "article_commandes",
-            joinColumns = @JoinColumn(name = "id_article"),
-            inverseJoinColumns = @JoinColumn(name = "id_commande"))
+    @JsonIgnore
+    @Builder.Default
+    @ManyToMany (mappedBy = "articles")
+//    @JoinTable(name = "article_commandes",
+//            joinColumns = @JoinColumn(name = "id_article"),
+//            inverseJoinColumns = @JoinColumn(name = "id_commande"))
     private List<Commande> commandes = new ArrayList<>();
 
 

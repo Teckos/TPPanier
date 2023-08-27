@@ -2,35 +2,56 @@ package fr.eni.tppanier.bo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.Delegate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
+
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
+@Data
 @Table(name = "commande")
 public class Commande {
-    @ToString.Include
+//    @ToString.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_commande", nullable = false)
     private Long idCommande;
 
-    @ToString.Include
+//    @ToString.Include
     @NotBlank(message = "Adresse obligatoire")
     private String adresse;
 
-    //    @ToString.Exclude
+//    @ToString.Include
     @Delegate
-    @ManyToMany(mappedBy = "commandes")
+    @Builder.Default
+    @ManyToMany/*(mappedBy = "commandes")*/
+//    @NotEmpty(message = "La liste ne peut être nulle")
     private List<Article> articles = new ArrayList<>();
+
+    public Double getTotal(){
+//        Double sum = this.articles.stream().mapToDouble(Article::getPrix)
+//                .sum();
+        return this.articles.stream().mapToDouble(Article::getPrix)
+                .sum();
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.idCommande);
+        sb.append(this.adresse);
+        sb.append(this.articles);
+
+        return sb.toString();
+    }
 
 }

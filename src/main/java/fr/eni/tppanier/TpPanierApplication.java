@@ -5,6 +5,7 @@ import fr.eni.tppanier.bll.CommandeManager;
 import fr.eni.tppanier.bo.Article;
 import fr.eni.tppanier.bo.Categorie;
 import fr.eni.tppanier.bo.Commande;
+import fr.eni.tppanier.dal.CommandeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,8 @@ public class TpPanierApplication implements CommandLineRunner {
     ArticleManager articleManager;
     @Autowired
     CommandeManager commandeManager;
+    @Autowired
+    CommandeDAO commandeDAO;
 
     public static void main(String[] args) {
         SpringApplication.run(TpPanierApplication.class, args);
@@ -35,8 +38,5 @@ public class TpPanierApplication implements CommandLineRunner {
         Commande c1 = Commande.builder().adresse("Chez Octavia").build();
         c1.setArticles(List.of(croquettes20L, croquettes50L));
         commandeManager.save(c1);
-
-        System.out.println(c1);
-        System.out.println(commandeManager.listerArticles());
     }
 }

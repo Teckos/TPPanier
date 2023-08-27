@@ -28,9 +28,10 @@ public class ArticleController {
     Categorie[] fetchAllCategories() {
         return Categorie.values();
     }
+
+
     @GetMapping
     public String gererArticle(Model model, Article article) {
-
         return "article";
     }
 
