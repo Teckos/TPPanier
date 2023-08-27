@@ -35,15 +35,15 @@ public class Article {
     @NotNull(message = "Prix obligatoire")
     private Double prix;
 
-    @Delegate
-    @ToString.Exclude
-    @JsonIgnore
-    @Builder.Default
-    @ManyToMany (mappedBy = "articles")
-//    @JoinTable(name = "article_commandes",
-//            joinColumns = @JoinColumn(name = "id_article"),
-//            inverseJoinColumns = @JoinColumn(name = "id_commande"))
-    private List<Commande> commandes = new ArrayList<>();
+//    @Delegate
+//    @ToString.Exclude
+//    @JsonIgnore
+//    @Builder.Default
+//    @ManyToMany (mappedBy = "articles")
+////    @JoinTable(name = "article_commandes",
+////            joinColumns = @JoinColumn(name = "id_article"),
+////            inverseJoinColumns = @JoinColumn(name = "id_commande"))
+//    private List<Commande> commandes = new ArrayList<>();
 
 
 }
