@@ -43,4 +43,6 @@ public interface CommandeManager {
     Double calcul();
 
     public void ajouterLigne(LigneCommande ligne);
+
+    public void savePanier();
 }

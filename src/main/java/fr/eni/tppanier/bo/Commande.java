@@ -7,9 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.Delegate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -38,6 +36,11 @@ public class Commande {
 ////    @NotEmpty(message = "La liste ne peut être nulle")
 //    private List<Article> articles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "commande")
+//    @ToString.Exclude
+    @Builder.Default
+    @Delegate
+    private Set<LigneCommande> panier = new HashSet<>();
 
     public Double getTotal(){
 //        Double sum = this.articles.stream().mapToDouble(Article::getPrix)
@@ -53,12 +56,12 @@ public class Commande {
 
 
 
-    @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.idCommande);
-        sb.append(this.adresse);
-        return sb.toString();
-    }
+//    @Override
+//    public String toString(){
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(this.idCommande);
+//        sb.append(this.adresse);
+//        return sb.toString();
+//    }
 
 }

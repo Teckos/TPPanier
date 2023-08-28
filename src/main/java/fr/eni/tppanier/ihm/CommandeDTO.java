@@ -16,13 +16,18 @@ public class CommandeDTO {
     HashMap<Article, Integer> panier = new HashMap<>();
 
     public void ajouterAuPanier(Article article, Integer quantite) {
-        this.panier.compute(article, (k,v) -> {
-            if(v != null) {
-                return v + quantite;
-            } else {
-                return v;
-            }
-        });
+        if(this.panier.containsKey(article)) {
+            this.panier.put(article,(this.panier.get(article)+quantite));
+        } else {
+            this.panier.put(article,quantite);
+        }
+//        this.panier.compute(article, (k,v) -> {
+//            if(v != null) {
+//                return v + quantite;
+//            } else {
+//                return v;
+//            }
+//        });
     }
 
     public void supprimerDuPanier(Long id) {

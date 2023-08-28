@@ -11,6 +11,7 @@ import lombok.experimental.Delegate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @AllArgsConstructor
@@ -45,5 +46,23 @@ public class Article {
 ////            inverseJoinColumns = @JoinColumn(name = "id_commande"))
 //    private List<Commande> commandes = new ArrayList<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Article article = (Article) o;
+        return Objects.equals(idArticle, article.idArticle) &&
+                Objects.equals(nom, article.nom);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idArticle, nom);
+    }
 
 }

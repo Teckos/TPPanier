@@ -1,9 +1,11 @@
 package fr.eni.tppanier.bo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
@@ -19,6 +21,8 @@ public class LigneCommande {
     private Article article;
 
     @ManyToOne
+    @JsonIgnore
+//    @ToString.Exclude
     private Commande commande;
 
     private Integer quantite;
@@ -26,6 +30,11 @@ public class LigneCommande {
     public LigneCommande(Article article, Commande commande, Integer quantite) {
         this.article = article;
         this.commande = commande;
+        this.quantite = quantite;
+    }
+
+    public LigneCommande(Article article, Integer quantite) {
+        this.article = article;
         this.quantite = quantite;
     }
 }

@@ -9,6 +9,7 @@ import fr.eni.tppanier.dal.LigneCommandeDAO;
 import fr.eni.tppanier.ihm.CommandeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +79,25 @@ public class CommandeManagerImpl implements CommandeManager{
 
     @Override
     public void ajouterLigne(LigneCommande ligne) {
+
         this.ligneCommandeDAO.save(ligne);
+    }
+
+    @Override
+    @Transactional
+    public void savePanier() {
+        commandeDTO.getPanier().forEach((article, quantite) -> {
+            //Save ligneCommande
+            LigneCommande l = new LigneCommande(article, quantite);
+            System.out.println(l);
+            commande.getPanier().add(l);
+            //commandeDAO.save(commande);
+            //Save ligneCommande dans Commande
+            l.setCommande(commande);
+            ligneCommandeDAO.save(l);
+        });
+//        System.out.println(commande.getPanier());
+//        commandeDAO.save(commande);
     }
 
     //    @Override
