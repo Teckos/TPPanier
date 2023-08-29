@@ -36,8 +36,10 @@
 <form th:action="@{/commande/nouvelle_commande}" th:object="${commande}" method="post">
     <label for="adresse">Adresse</label>
     <input type="text" id="adresse" th:field="*{adresse}">
-            <span th:if="${#fields.hasErrors('adresse')}" th:errors="*{adresse}"/>
-            <span th:if="${#fields.hasErrors('panier')}" th:errors="*{panier}"/>
+    <div th:if="${#fields.hasErrors()}">
+        <span class="error" th:each="error : ${#fields.allDetailedErrors()}" th:text="${error.getMessage()}"></span>
+    </div>
+
     <br>
 
     <input type="submit" value="Valider">

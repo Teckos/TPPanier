@@ -106,4 +106,7 @@ span {
     color: black;
 }
 
+.error {
+    color: red;
+}
 /* Ajoute d'autres styles si nécessaire */
