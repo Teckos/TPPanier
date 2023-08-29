@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 @Entity
@@ -22,7 +21,7 @@ public class LigneCommande {
 
     @ManyToOne
     @JsonIgnore
-//    @ToString.Exclude
+    @ToString.Exclude
     private Commande commande;
 
     private Integer quantite;
@@ -33,8 +32,7 @@ public class LigneCommande {
         this.quantite = quantite;
     }
 
-    public LigneCommande(Article article, Integer quantite) {
-        this.article = article;
-        this.quantite = quantite;
+    public Double totalLigne(){
+        return this.quantite * this.article.getPrix();
     }
 }

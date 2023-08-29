@@ -1,45 +1,35 @@
 package fr.eni.tppanier.ihm;
 
 import fr.eni.tppanier.bo.Article;
-import fr.eni.tppanier.bo.Commande;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor
 public class CommandeDTO {
     HashMap<Article, Integer> panier = new HashMap<>();
 
-    public void ajouterAuPanier(Article article, Integer quantite) {
+    public void modifierPanier(Article article, Integer quantite) {
         if(this.panier.containsKey(article)) {
-            this.panier.put(article,(this.panier.get(article)+quantite));
+            if(this.panier.get(article)+quantite==0) {
+                this.panier.remove(article);
+            }else {
+                this.panier.put(article,(this.panier.get(article)+quantite));
+            }
         } else {
             this.panier.put(article,quantite);
         }
-//        this.panier.compute(article, (k,v) -> {
-//            if(v != null) {
-//                return v + quantite;
-//            } else {
-//                return v;
-//            }
-//        });
+
     }
 
     public void supprimerDuPanier(Long id) {
-//        List<Article> lst = this.panier;
-//        this.panier=(lst.stream().filter(e -> !id.equals(e.getIdArticle())).toList());
-//        this.panier.compute(article, (k,v) -> {
-//            if(v != null) {
-//                return v - 1;
-//            } else {
-//                return v;
-//            }
-//        });
+        Article articleSelectionne = panier.keySet().stream().filter(a->a.getIdArticle().equals(id)).findFirst().orElse(null);
+        System.out.println(articleSelectionne);
+        modifierPanier(articleSelectionne,-1);
+
     }
 
 }

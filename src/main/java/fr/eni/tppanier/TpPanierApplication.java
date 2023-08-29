@@ -36,19 +36,9 @@ public class TpPanierApplication implements CommandLineRunner {
         articleManager.save(croquettes20L);
         articleManager.save(croquettes50L);
 
-        Commande c1 = Commande.builder().adresse("Chez Octavia").build();
-//        c1.setArticles(List.of(croquettes20L, croquettes50L));
-        commandeManager.save(c1);
-        //LigneCommande l1 = new LigneCommande(croquettes20L, c1, 2);
-//        commandeManager.ajouterLigne(l1);
-//        LigneCommande l2 = new LigneCommande(ballon, c1, 1);
-//        commandeManager.ajouterLigne(l2);
         commandeManager.ajouterArticleAuPanier(croquettes20L,2);
         commandeManager.ajouterArticleAuPanier(croquettes50L,1);
         commandeManager.ajouterArticleAuPanier(croquettes50L,1);
-        System.out.println(commandeManager.listerArticlesPanier());
-        System.out.println(c1);
-        commandeManager.savePanier();
-
+        commandeManager.savePanier("Commande de Lolo");
     }
 }

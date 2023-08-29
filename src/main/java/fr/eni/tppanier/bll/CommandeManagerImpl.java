@@ -40,12 +40,13 @@ public class CommandeManagerImpl implements CommandeManager{
     @Override
     public void ajouterArticleAuPanier(Article article, Integer quantite) {
 //        this.commande.add(article);
-        this.commandeDTO.ajouterAuPanier(article, quantite);
+        this.commandeDTO.modifierPanier(article, quantite);
+        System.out.println("J'ajoute "+quantite+" "+article.getNom() );
     }
 
     @Override
     public void ajouterPanier(CommandeDTO commandeDTO) {
-//        this.commande.setArticles(commandeDTO.getPanier());
+//        this.commande.setPanier(commandeDTO.getPanier());
     }
 
 //    @Override
@@ -68,9 +69,14 @@ public class CommandeManagerImpl implements CommandeManager{
 //    }
     @Override
     public void supprimerArticle(Long id) {
+        this.commandeDTO.supprimerDuPanier(id);
+    }
+
+//    @Override
+//    public void supprimerArticle(Long id) {
 //        List<Article> lst = this.commande.getArticles();
 //        this.commande.setArticles(lst.stream().filter(e -> !id.equals(e.getIdArticle())).collect(Collectors.toList()));
-    }
+//    }
 
     @Override
     public Double calcul() {
@@ -85,30 +91,26 @@ public class CommandeManagerImpl implements CommandeManager{
 
     @Override
     @Transactional
-    public void savePanier() {
+    public void savePanier(String adresse) {
         commandeDTO.getPanier().forEach((article, quantite) -> {
-            //Save ligneCommande
-            LigneCommande l = new LigneCommande(article, quantite);
-            System.out.println(l);
+            LigneCommande l = new LigneCommande(article, commande,quantite);
             commande.getPanier().add(l);
-            //commandeDAO.save(commande);
-            //Save ligneCommande dans Commande
-            l.setCommande(commande);
             ligneCommandeDAO.save(l);
+            System.out.println(commande);
         });
-//        System.out.println(commande.getPanier());
-//        commandeDAO.save(commande);
+        this.valider(adresse);
     }
 
     //    @Override
     public void valider(String adresse) {
         this.commande.setAdresse(adresse);
         System.err.println(adresse);
-//        this.commande.setArticles(this.commandeDTO.getPanier());
         commandeDAO.save(commande);
         System.err.println(commande);
+        System.err.println(this.listerArticlesPanier().keySet());
 
         this.commande = new Commande();
+        this.commandeDTO = new CommandeDTO();
     }
 
 }

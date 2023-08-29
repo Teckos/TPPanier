@@ -22,13 +22,14 @@
     </fieldset>
 </form>
 <div>
-    <!--/*@thymesVar id="commande" type="fr.eni.tppanier.bo.Commande"*/-->
-    <ul th:each="article : ${panier}">
-        <li>
-            <span th:text="${article.nom}"/>
-            <span th:text="${article.prix}"/>
-            <a th:href="@{/commande/nouvelle_commande/supprimer_article/{id}(id=${article.idArticle})}">[X]</a>
+    <!--/*@thymesVar id="ligneCommande" type="fr.eni.tppanier.bo.LigneCommande"*/-->
+    <ul th:each="ligneCommande : ${panier}">
+        <li th:if="${ligneCommande.getValue()}>0">
+        <span th:text="${ligneCommande.getKey().nom}+' | '+${ligneCommande.getValue()}+' | '+${ligneCommande.getKey().getPrix()}+' | '+${ligneCommande.getValue()}*${ligneCommande.getKey().getPrix()}">
+        </span>
+        <a class="btn" th:href="@{/commande/nouvelle_commande/supprimer_article/{id}(id=${ligneCommande.getKey().idArticle})}">[X]</a>
         </li>
+
     </ul>
 
 <!--            <span th:if="${#fields.hasErrors('articles')}" th:errors="${commande.articles}"></span>-->
