@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -29,8 +27,8 @@ public class CommandeController {
     }
 
     @ModelAttribute("panier")
-    List<Article> getPanier() {
-        return commandeManager.listerArticles();
+    HashMap<Article, Integer> getPanier() {
+        return commandeManager.listerArticlesPanier();
     }
 
 
@@ -51,14 +49,12 @@ public class CommandeController {
 
     @GetMapping("/nouvelle_commande")
     public String gererCommande(Model model, Commande commande) {
-//        List<Article> articleList = new ArrayList<>();
-//        model.addAttribute("articleList",articleList);
         return "nouvelle_commande";
     }
 
     @PostMapping("/nouvelle_commande/ajouter_article")
     public String ajouterArticle(Article article, BindingResult errors) {
-        commandeManager.ajouterArticle(article);
+        commandeManager.ajouterArticleAuPanier(article, 1);
         return "redirect:/commande/nouvelle_commande";
     }
     @GetMapping("/nouvelle_commande/supprimer_article/{id}")
@@ -68,24 +64,18 @@ public class CommandeController {
     }
 
     @PostMapping("/nouvelle_commande")
-    public  String validerCommande(@Valid Commande commande, CommandeDTO commandeDTO, BindingResult errors) {
-//        System.err.println(commande);
-//        if(commande.getArticles().isEmpty()) {
-//            System.err.println(commande.getArticles().isEmpty());
-//            errors.addError(new FieldError("commande", "articles", "Le panier est vide !"));
+    public  String validerCommande(@Valid Commande commande, BindingResult errors) {
+//        if(commandeManager.listerArticlesPanier().isEmpty()) {
 //            return "nouvelle_commande";
-//        }
-//        if(commandeDTO.panier.isEmpty()) {
-//            System.err.println("Panier vide");
 //        }
         if(errors.hasErrors()) {
             return "nouvelle_commande";
         }
         try {
-//            commandeManager.ajouterPanier(commandeDTO);
-            commandeManager.valider(commande.getAdresse());
+            commandeManager.savePanier(commande.getAdresse());
         } catch (Exception e) {
 //TODO
+            return "nouvelle_commande";
         }
 
         return "redirect:/commande";

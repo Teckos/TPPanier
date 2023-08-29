@@ -15,8 +15,8 @@
 <div th:each="commande : ${toutesLesCommandes}">
     <fieldset>
         <legend th:text="'Commande : '+${commande.getAdresse()} + ' '+ ${commande.getTotal()}"></legend>
-        <div th:each="article : ${commande.getArticles()}">
-            <p th:text="${article.nom}+' '+${article.prix}"></p>
+        <div th:each="ligneCommande : ${commande.getPanier()}">
+            <p th:text="${ligneCommande.article.nom}+' | '+${ligneCommande.quantite}+' | '+${ligneCommande.article.prix}+' | '+${ligneCommande.totalLigne()}"></p>
 
         </div>
 

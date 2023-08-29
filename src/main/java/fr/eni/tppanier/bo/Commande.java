@@ -2,56 +2,59 @@ package fr.eni.tppanier.bo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.Delegate;
+import org.hibernate.proxy.HibernateProxy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 @Table(name = "commande")
 public class Commande {
-//    @ToString.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_commande", nullable = false)
     private Long idCommande;
 
-//    @ToString.Include
     @NotBlank(message = "Adresse obligatoire")
     private String adresse;
 
-//    @ToString.Include
-    @Delegate
+    @OneToMany(mappedBy = "commande")
     @Builder.Default
-    @ManyToMany/*(mappedBy = "commandes")*/
-//    @NotEmpty(message = "La liste ne peut être nulle")
-    private List<Article> articles = new ArrayList<>();
+    @Delegate
+    private Set<LigneCommande> panier = new HashSet<>();
 
     public Double getTotal(){
-//        Double sum = this.articles.stream().mapToDouble(Article::getPrix)
-//                .sum();
-        return this.articles.stream().mapToDouble(Article::getPrix)
-                .sum();
+        Double totalPanier = 0.0;
+        for (LigneCommande ligne: panier) {
+            totalPanier += ligne.totalLigne();
+
+        }
+        return totalPanier;
     }
 
     @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.idCommande);
-        sb.append(this.adresse);
-        sb.append(this.articles);
-
-        return sb.toString();
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        Commande commande = (Commande) o;
+        return getIdCommande() != null && Objects.equals(getIdCommande(), commande.getIdCommande());
     }
 
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
 }

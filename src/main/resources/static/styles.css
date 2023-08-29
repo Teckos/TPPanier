@@ -24,6 +24,8 @@ a {
     color: #fff;
 }
 
+
+
 button {
     margin-bottom: 20px;
 }
@@ -98,6 +100,10 @@ span {
     border-radius: 5px;
     margin-bottom: 10px;
     background: lightseagreen;
+}
+
+.btn {
+    color: black;
 }
 
 /* Ajoute d'autres styles si nécessaire */
