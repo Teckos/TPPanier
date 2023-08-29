@@ -4,9 +4,9 @@ import fr.eni.tppanier.bo.Article;
 
 import java.util.List;
 
-public interface ArticleManager {
-    public void save(Article article);
-    public List<Article> getAll();
+public interface SuperManager <T> {
+    public void save(T t);
+    public List<T> getAll();
 
     void deleteById(Integer id);
 }

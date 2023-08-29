@@ -40,34 +40,28 @@ public class CommandeManagerImpl implements CommandeManager{
     }
 
     @Override
-    public void ajouterPanier(CommandeDTO commandeDTO) {
-//        this.commande.setPanier(commandeDTO.getPanier());
-    }
-
-    @Override
     public HashMap<Article,Integer> listerArticlesPanier() {
         return commandeDTO.getPanier();
     }
 
     @Override
-    public List<Commande> getAllCommande() {
+    public List<Commande> getAll() {
         return (List<Commande>) commandeDAO.findAll();
     }
 
     @Override
-    public void supprimerArticle(Long id) {
+    public void deleteById(Integer id) {
+        commandeDAO.deleteById(id);
+    }
+
+    @Override
+    public void supprimerArticleDuPanier(Long id) {
         this.commandeDTO.supprimerDuPanier(id);
     }
 
     @Override
     public Double calcul() {
         return this.commande.getTotal();
-    }
-
-    @Override
-    public void ajouterLigne(LigneCommande ligne) {
-
-        this.ligneCommandeDAO.save(ligne);
     }
 
     @Override

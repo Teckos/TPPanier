@@ -1,7 +1,7 @@
 package fr.eni.tppanier.ihm;
 
-import fr.eni.tppanier.bll.ArticleManager;
 import fr.eni.tppanier.bll.CommandeManager;
+import fr.eni.tppanier.bll.SuperManager;
 import fr.eni.tppanier.bo.Article;
 import fr.eni.tppanier.bo.Commande;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class CommandeController {
     @Autowired
     CommandeManager commandeManager;
     @Autowired
-    ArticleManager articleManager;
+    SuperManager<Article> articleManager;
 
     @ModelAttribute("tousLesArticles")
     List<Article> fetchAllArticle() {
@@ -34,7 +34,7 @@ public class CommandeController {
 
     @ModelAttribute("toutesLesCommandes")
     List<Commande> fetchAllCommande() {
-        return commandeManager.getAllCommande();
+        return commandeManager.getAll();
     }
 
     @ModelAttribute("totalCommande")
@@ -59,7 +59,7 @@ public class CommandeController {
     }
     @GetMapping("/nouvelle_commande/supprimer_article/{id}")
     public String supprimerArticle(@PathVariable("id") Long id) {
-        commandeManager.supprimerArticle(id);
+        commandeManager.supprimerArticleDuPanier(id);
         return "redirect:/commande/nouvelle_commande";
     }
 

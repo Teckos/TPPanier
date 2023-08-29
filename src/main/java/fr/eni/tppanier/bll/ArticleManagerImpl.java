@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ArticleManagerImpl implements ArticleManager {
+public class ArticleManagerImpl implements SuperManager<Article> {
     @Autowired
     ArticleDAO articleDAO;
 

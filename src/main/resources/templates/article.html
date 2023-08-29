@@ -39,7 +39,7 @@
         <li>
             <span th:text="${article.idArticle}"/>
             <span th:text="${article.nom}"/>
-            <a th:href="@{/article/supprimer/{id}(id=${article.idArticle})}" th:text="Supprimer">[Supprimer]</a>
+            <a class="btn" th:href="@{/article/supprimer/{id}(id=${article.idArticle})}" th:text="[X]">[Supprimer]</a>
         </li>
 
     </ul>

@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 
-public interface CommandeManager {
-    public void save(Commande commande);
+public interface CommandeManager extends SuperManager<Commande>{
+//    public void save(Commande commande);
+//
+//    public List<Commande> getAll();
 
     @Transactional
     void savePanier(String adresse);
@@ -19,16 +21,10 @@ public interface CommandeManager {
 
     void ajouterArticleAuPanier(Article article, Integer quantite);
 
-    public void ajouterPanier(CommandeDTO commandeDTO);
-
     HashMap<Article,Integer> listerArticlesPanier();
 
-    public List<Commande> getAllCommande();
-
-    void supprimerArticle(Long id);
+    void supprimerArticleDuPanier(Long id);
 
     Double calcul();
-
-    public void ajouterLigne(LigneCommande ligne);
 
 }

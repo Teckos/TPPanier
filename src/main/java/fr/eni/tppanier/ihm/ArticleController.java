@@ -1,6 +1,6 @@
 package fr.eni.tppanier.ihm;
 
-import fr.eni.tppanier.bll.ArticleManager;
+import fr.eni.tppanier.bll.SuperManager;
 import fr.eni.tppanier.bo.Article;
 import fr.eni.tppanier.bo.Categorie;
 import jakarta.validation.Valid;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/article")
 public class ArticleController {
     @Autowired
-    ArticleManager articleManager;
+    SuperManager<Article> articleManager;
 
     @ModelAttribute("tousLesArticles")
     List<Article> fetchAllArticle() {

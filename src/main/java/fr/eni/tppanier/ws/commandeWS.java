@@ -17,7 +17,7 @@ public class commandeWS {
 
     @GetMapping
     public List<Commande> getAllCommade() {
-        return manager.getAllCommande();
+        return manager.getAll();
     }
 
 }

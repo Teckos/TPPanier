@@ -1,7 +1,8 @@
 package fr.eni.tppanier;
 
-import fr.eni.tppanier.bll.ArticleManager;
+//import fr.eni.tppanier.bll.ArticleManager;
 import fr.eni.tppanier.bll.CommandeManager;
+import fr.eni.tppanier.bll.SuperManager;
 import fr.eni.tppanier.bo.Article;
 import fr.eni.tppanier.bo.Categorie;
 import fr.eni.tppanier.bo.Commande;
@@ -17,7 +18,7 @@ import java.util.List;
 @SpringBootApplication
 public class TpPanierApplication implements CommandLineRunner {
     @Autowired
-    ArticleManager articleManager;
+    SuperManager<Article> articleManager;
     @Autowired
     CommandeManager commandeManager;
     @Autowired
