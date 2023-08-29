@@ -27,7 +27,7 @@ public class CommandeDTO {
 
     public void supprimerDuPanier(Long id) {
         Article articleSelectionne = panier.keySet().stream().filter(a->a.getIdArticle().equals(id)).findFirst().orElse(null);
-        System.out.println(articleSelectionne);
+//        System.out.println(articleSelectionne);
         modifierPanier(articleSelectionne,-1);
 
     }

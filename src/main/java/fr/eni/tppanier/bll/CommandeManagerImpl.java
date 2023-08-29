@@ -80,7 +80,7 @@ public class CommandeManagerImpl implements CommandeManager{
                 LigneCommande l = new LigneCommande(article, commande, quantite);
                 commande.getPanier().add(l);
                 ligneCommandeDAO.save(l);
-                System.out.println(commande);
+//                System.out.println(commande);
             });
             this.valider(adresse);
         }
@@ -89,10 +89,10 @@ public class CommandeManagerImpl implements CommandeManager{
     //    @Override
     public void valider(String adresse) {
         this.commande.setAdresse(adresse);
-        System.err.println(adresse);
+//        System.err.println(adresse);
         commandeDAO.save(commande);
-        System.err.println(commande);
-        System.err.println(this.listerArticlesPanier().keySet());
+//        System.err.println(commande);
+//        System.err.println(this.listerArticlesPanier().keySet());
 
         this.commande = new Commande();
         this.commandeDTO = new CommandeDTO();

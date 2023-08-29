@@ -65,9 +65,9 @@ public class CommandeController {
 
     @PostMapping("/nouvelle_commande")
     public  String validerCommande(@Valid Commande commande, BindingResult errors) {
-        if(commandeManager.listerArticlesPanier().isEmpty()) {
-            return "nouvelle_commande";
-        }
+//        if(commandeManager.listerArticlesPanier().isEmpty()) {
+//            return "nouvelle_commande";
+//        }
         if(errors.hasErrors()) {
             return "nouvelle_commande";
         }
