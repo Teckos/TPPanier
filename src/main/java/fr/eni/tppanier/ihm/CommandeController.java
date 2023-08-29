@@ -64,9 +64,9 @@ public class CommandeController {
     }
 
     @PostMapping("/nouvelle_commande")
-    public  String validerCommande(@Valid Commande commande, CommandeDTO commandeDTO, BindingResult errors) {
-        if(commandeDTO.panier.isEmpty()) {
-            System.err.println("Panier vide");
+    public  String validerCommande(@Valid Commande commande, BindingResult errors) {
+        if(commandeManager.listerArticlesPanier().isEmpty()) {
+            return "nouvelle_commande";
         }
         if(errors.hasErrors()) {
             return "nouvelle_commande";
@@ -75,6 +75,7 @@ public class CommandeController {
             commandeManager.savePanier(commande.getAdresse());
         } catch (Exception e) {
 //TODO
+            return "nouvelle_commande";
         }
 
         return "redirect:/commande";

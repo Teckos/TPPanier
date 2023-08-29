@@ -45,7 +45,6 @@ public class ArticleController {
 //TODO
         }
         return "redirect:/article";
-
     }
 
     @GetMapping("/supprimer/{id}")
