@@ -1,16 +1,14 @@
 package fr.eni.tppanier.bll;
 
 import fr.eni.tppanier.bo.Article;
-import fr.eni.tppanier.bo.Commande;
 import fr.eni.tppanier.dal.ArticleDAO;
-import fr.eni.tppanier.dal.CommandeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ArticleManagerImpl implements SuperManager<Article> {
+public class ArticleManagerImpl implements GenericManager<Article> {
     @Autowired
     ArticleDAO articleDAO;
 

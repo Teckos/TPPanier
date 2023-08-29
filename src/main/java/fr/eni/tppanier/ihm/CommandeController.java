@@ -1,15 +1,21 @@
 package fr.eni.tppanier.ihm;
 
+import fr.eni.tppanier.bll.CommandeException;
 import fr.eni.tppanier.bll.CommandeManager;
-import fr.eni.tppanier.bll.SuperManager;
+import fr.eni.tppanier.bll.ERROR_CODES;
+import fr.eni.tppanier.bll.GenericManager;
 import fr.eni.tppanier.bo.Article;
 import fr.eni.tppanier.bo.Commande;
+import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +25,7 @@ public class CommandeController {
     @Autowired
     CommandeManager commandeManager;
     @Autowired
-    SuperManager<Article> articleManager;
+    GenericManager<Article> articleManager;
 
     @ModelAttribute("tousLesArticles")
     List<Article> fetchAllArticle() {
@@ -73,8 +79,11 @@ public class CommandeController {
         }
         try {
             commandeManager.savePanier(commande.getAdresse());
-        } catch (Exception e) {
-//TODO
+        } catch (CommandeException e) {
+            if(e.getErreurList().contains(ERROR_CODES.PANIER_VIDE)) {
+                System.err.println("panier vide");
+                errors.addError(new FieldError("commande", "panier", ERROR_CODES.PANIER_VIDE.getMessage() ));
+            }
             return "nouvelle_commande";
         }
 

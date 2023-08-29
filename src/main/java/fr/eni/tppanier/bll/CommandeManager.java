@@ -2,20 +2,17 @@ package fr.eni.tppanier.bll;
 
 import fr.eni.tppanier.bo.Article;
 import fr.eni.tppanier.bo.Commande;
-import fr.eni.tppanier.bo.LigneCommande;
-import fr.eni.tppanier.ihm.CommandeDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.List;
 
-public interface CommandeManager extends SuperManager<Commande>{
+public interface CommandeManager extends GenericManager<Commande> {
 //    public void save(Commande commande);
 //
 //    public List<Commande> getAll();
 
     @Transactional
-    void savePanier(String adresse);
+    void savePanier(String adresse) throws CommandeException;
 
     public void valider(String string);
 

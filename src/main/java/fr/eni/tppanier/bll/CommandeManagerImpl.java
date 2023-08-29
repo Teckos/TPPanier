@@ -10,12 +10,13 @@ import fr.eni.tppanier.ihm.CommandeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Service
-//@SessionScope
+@SessionScope
 public class CommandeManagerImpl implements CommandeManager{
     @Autowired
     CommandeDAO commandeDAO;
@@ -66,9 +67,9 @@ public class CommandeManagerImpl implements CommandeManager{
 
     @Override
     @Transactional
-    public void savePanier(String adresse) {
+    public void savePanier(String adresse) throws CommandeException {
         if(commandeDTO.getPanier().isEmpty()) {
-            System.err.println("panier vide");
+            throw new CommandeException(ERROR_CODES.PANIER_VIDE);
         } else {
             commandeDTO.getPanier().forEach((article, quantite) -> {
                 LigneCommande l = new LigneCommande(article, commande, quantite);
